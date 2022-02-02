@@ -37,14 +37,23 @@
     endcapture -%}
 
     {{ content_for_header }}
-</head>
+
+	{{ shop.metafields.loox["global_html_head"] }}
+
+<script>
+window.mlvedaShopCurrency = "{{ shop.currency }}";
+window.shopCurrency = "{{ shop.currency }}";
+window.supported_currencies = "{{ settings.mlvedaACS_supportedCurrencies }}";
+</script></head>
 <body {{class_body_theme | strip_newlines-}}>
   {%- render 'lazypreload' -%}
   <div id="nt_wrapper">
     {%- render 'header',t_name:t_name -%}
-    <div id="nt_content">{{ content_for_layout }}</div>
+    <div id="nt_content">{{ content_for_layout }}{% include "arp" %}</div>
     <footer id="nt_footer" class="bgbl footer-1">{%- section 'footer_top' -%}{%- section 'footer_bot' -%}</footer>
   </div>
   {%- render 'div_html',t_name:t_name -%}
-</body>
+
+	{{ shop.metafields.loox["global_html_body"] }}
+{% include 'mlveda-currencies-switcher' %}{% include 'mlveda-currencies' %}{% include 'mlveda-flag' %}{% include 'mlveda-currencies-style' %}</body>
 </html>
